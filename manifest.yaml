@@ -10,7 +10,7 @@ resources:
     deploy_method: stack_set
     deployment_targets: # :type: list
       organizational_units:
-        - ou_Beehive
+        - ou_Beehive_Prd
     regions:
       - ap-northeast-1  # tokyo
       - ap-northeast-2  # seoul
