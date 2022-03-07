@@ -9,7 +9,7 @@ resources:
     resource_file: templates/required-tags.template
     deploy_method: stack_set
     deployment_targets: # :type: list
-      organizationl_inites:
+      organizational_units:
         - ou_Beehive
     regions:
       - ap-northeast-1  # tokyo
