@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Default Conformance Pack"
+Resources:
+  AcmCertificateExpirationCheck:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cfct-acm-certificate-expiration-check
+      InputParameters:
+        daysToExpiration: '90'
+      Scope:
+        ComplianceResourceTypes:
+        - AWS::ACM::Certificate
+      Source:
+        Owner: AWS
+        SourceIdentifier: ACM_CERTIFICATE_EXPIRATION_CHECK
+      Description: "SHOULD 14.5.8.C.01[CID:1667]| Software security/Web Application Development/Web applications"
+  IamRootAccessKeyCheck:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cfct-iam-root-access-key-check
+      Source:
+        Owner: AWS
+        SourceIdentifier: IAM_ROOT_ACCESS_KEY_CHECK
+      Description: "SHOULD 16.3.5.C.02[CID:1946]| Access Control and Passwords/Privileged User Access/Use of privileged accounts"
+  RestrictedSsh:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cfct-restricted-ssh
+      Scope:
+        ComplianceResourceTypes:
+        - AWS::EC2::SecurityGroup
+      Source:
+        Owner: AWS
+        SourceIdentifier: INCOMING_SSH_DISABLED
+      Description: "SHOULD 17.5.8.C.02[CID:2726]| Cryptography/Secure Shell/Automated remote access"
+  MfaEnabledForIamConsoleAccess:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cfct-mfa-enabled-for-iam-console-access
+      Source:
+        Owner: AWS
+        SourceIdentifier: MFA_ENABLED_FOR_IAM_CONSOLE_ACCESS
+      Description: "SHOULD 16.1.35.C.02[CID:1841], SHOULD 16.4.31.C.02[CID:6843], SHOULD 16.7.34.C.02[CID:6953]| Access Control and Passwords: (Identification, Authentication and Passwords/Methods for system user identification and authentication & Privileged Access Man..."
+  RootAccountMfaEnabled:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cfct-root-account-mfa-enabled
+      Source:
+        Owner: AWS
+        SourceIdentifier: ROOT_ACCOUNT_MFA_ENABLED
+      Description: "SHOULD 16.1.35.C.02[CID:1841]| Access Control and Passwords/Identification, Authentication and Passwords/Methods for system user identification and authentication"
+  VpcDefaultSecurityGroupClosed:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cfct-vpc-default-security-group-closed
+      Scope:
+        ComplianceResourceTypes:
+        - AWS::EC2::SecurityGroup
+      Source:
+        Owner: AWS
+        SourceIdentifier: VPC_DEFAULT_SECURITY_GROUP_CLOSED
+      Description: "MUST 19.1.11.C.01[CID:3548], MUST 19.1.12.C.01[CID:3562]| Gateway security/Gateways: (Using gateways & Configuration of gateways)"
