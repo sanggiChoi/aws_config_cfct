@@ -35,7 +35,8 @@ Resources:
             Value: "RESOURCE_ID"
         CreateSnapshot:
           StaticValue:
-            Value: false
+            Values: 
+              - "false"
   AutoRemediationIamRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -59,7 +60,9 @@ Resources:
             Statement:
               - Sid: "DeleteVolumePermissions"
                 Effect: "Allow"
-                Action: "ec2:DeleteVolume"
+                Action: 
+                  - "ec2:DeleteVolume"
+                  - "ec2:DescribeVolumes"
                 Resource: "*"
   AutomationPassRolePolicy:
     Type: "AWS::IAM::Policy"
